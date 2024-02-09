@@ -7,6 +7,10 @@ let computerScore = 0;
 while(playerScore <= 2 && computerScore <= 2){
     console.log (`(${playerScore} - ${computerScore})`)
     let playerSelection = getPlayerSelection();
+    while(!(typeof playerSelection === "string")){
+        alert("Invalid input, please choose correctly")
+        playerSelection = getPlayerSelection();
+    }
     let computerSelection = getComputerSelection();
     let winner = playRound(playerSelection, computerSelection);
     if(+winner == 0){
@@ -60,12 +64,12 @@ function playRound(playerSelection, computerSelection){
 
 }
 function getPlayerSelection(entry = ""){
+    console.log("Entry "+entry)
     if (!entry && entry !== null){
         entry = prompt("Rock, paper or scissors?");
         entry = entry.trim().toLowerCase();
         
     }
-    console.log("Entry: "+entry);
     switch(entry){
         case "rock":
             return entry;
@@ -74,7 +78,7 @@ function getPlayerSelection(entry = ""){
         case "scissors":
             return entry;
         default:
-            getPlayerSelection(prompt("Invalid selection, choose again:"));
+            return null;
     }
 }
 
