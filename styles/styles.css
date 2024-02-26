@@ -32,13 +32,16 @@ body{
     gap: 24px;
 
 }
-
-.span-gameinfo{
+#span-gameinfo{
     display: flex;
     min-height: 50px;
     align-items: center;
     font-size: x-large;
     margin: 0;
+    font-weight: bold;
+}
+#container-score{
+    font-size: 48px;
 }
 #footer{
     display: flex;

@@ -1,5 +1,12 @@
 //playGame();
 
+const buttons = document.querySelectorAll('button');
+
+buttons.forEach((button) => {
+    button.addEventListener('click', (e) => {
+        let winner = playRound(button.textContent.toLocaleLowerCase(), getComputerSelection());
+    });
+});
 
 function playGame(){
 let playerScore = 0;
@@ -32,34 +39,40 @@ function playRound(playerSelection, computerSelection){
     // Parameters: player selection, computer selection
     // Returns: 0 -  computer wins, 1 - player wins, 2 - draw
     let selections = playerSelection.concat(",",computerSelection);
+    let infoPanel = document.getElementById('span-gameinfo');
+    let result = -1;
 
     if(selections.includes("rock") && selections.includes("paper")){
         if(playerSelection === "paper"){
-            alert("You win! ("+playerSelection+") vs ("+computerSelection+")");
-            return 1;
+            result = 1;
         }else{
-            alert("You lose ("+playerSelection+") vs ("+computerSelection+")");
-            return 0;
+            result = 0;
         }
     }else if(selections.includes("paper") && selections.includes("scissors")){
         if(playerSelection === "scissors"){
-            alert("You win! ("+playerSelection+") vs ("+computerSelection+")");
-            return 1;
+            result = 1;
         }else{
-            alert("You lose ("+playerSelection+") vs ("+computerSelection+")");
-            return 0;
+            result = 0;
         }
     }else if(selections.includes("rock") && selections.includes("scissors")){
         if(playerSelection === "rock"){
-            alert("You win! ("+playerSelection+") vs ("+computerSelection+")");
-            return 1;
+            result = 1;
         }else{
-            alert("You lose ("+playerSelection+") vs ("+computerSelection+")");
-            return 0;
+            result = 0;
         }
     }else{
-        alert("Draw!  ("+playerSelection+") vs ("+computerSelection+")");
-        return 2;
+        result = 2;
+    }
+    if (result == 1){
+
+        infoPanel.textContent = "You win! ("+playerSelection+" vs "+computerSelection+")";
+        infoPanel.style.color = 'green';
+    }else if ( result == 0){
+        infoPanel.textContent = "You lose ("+playerSelection+" vs "+computerSelection+")";
+        infoPanel.style.color = 'red';
+    }else{
+        infoPanel.textContent = "Draw!  ("+playerSelection+" vs "+computerSelection+")";
+        infoPanel.style.color = '#222831';
     }
 
 }
