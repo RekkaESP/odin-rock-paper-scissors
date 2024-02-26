@@ -1,12 +1,37 @@
 //playGame();
 
 const buttons = document.querySelectorAll('button');
+let playerScore = 0;
+let computerScore = 0;
+let winScore = 3;
+let gameFinished = false;
 
 buttons.forEach((button) => {
     button.addEventListener('click', (e) => {
+        if(!gameFinished){
         let winner = playRound(button.textContent.toLocaleLowerCase(), getComputerSelection());
+        if(winner == 1){
+            ++playerScore;
+            document.getElementById('player-score').textContent = playerScore;
+        }else if (winner == 0){
+            ++computerScore;
+            document.getElementById('computer-score').textContent = computerScore;
+        }
+        if(playerScore >= winScore){
+            document.getElementById('span-gameinfo').textContent = 'You won!';
+            gameFinished = true;
+
+        }else if (computerScore >= winScore){
+            document.getElementById('span-gameinfo').textContent = 'You lost!';
+            gameFinished = true;
+        }
+    }
+    else if (gameFinished){
+        window.location.reload();
+    }
     });
 });
+
 
 function playGame(){
 let playerScore = 0;
@@ -74,6 +99,7 @@ function playRound(playerSelection, computerSelection){
         infoPanel.textContent = "Draw!  ("+playerSelection+" vs "+computerSelection+")";
         infoPanel.style.color = '#222831';
     }
+    return result;
 
 }
 function getPlayerSelection(entry = ""){
